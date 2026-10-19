@@ -1,0 +1,307 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sharodiya | Admin Panel</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      min-height: 100vh;
+      background: #fffaf2;
+    }
+
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      padding: 20px 7%;
+      border-bottom: 1px solid #eadfd2;
+      background: white;
+    }
+
+    .admin-header button,
+    .upload-button {
+      border: 0;
+      padding: 12px 18px;
+      background: #a51e2b;
+      color: white;
+      border-radius: 4px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .admin-main {
+      max-width: 1050px;
+      margin: 0 auto;
+      padding: 45px 24px;
+    }
+
+    .admin-main h1 {
+      font-family: Georgia, serif;
+      font-size: 36px;
+      font-weight: 400;
+    }
+
+    .admin-subtitle {
+      margin-top: 10px;
+      color: #786b63;
+      font-size: 13px;
+    }
+
+    .admin-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 24px;
+      margin-top: 30px;
+    }
+
+    .admin-panel {
+      padding: 25px;
+      background: white;
+      border: 1px solid #eadfd2;
+      border-radius: 8px;
+    }
+
+    .admin-panel h2 {
+      margin-bottom: 22px;
+      font-family: Georgia, serif;
+      font-weight: 400;
+      font-size: 23px;
+    }
+
+    .admin-panel label {
+      display: block;
+      margin: 16px 0 7px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .admin-panel input,
+    .admin-panel textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #dfd1c3;
+      border-radius: 4px;
+      font: inherit;
+      font-size: 13px;
+    }
+
+    .admin-panel textarea {
+      resize: vertical;
+      min-height: 90px;
+    }
+
+    .admin-panel input[type="file"] {
+      padding: 10px;
+      background: #fffaf2;
+    }
+
+    .upload-button {
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    #admin-message {
+      margin-top: 15px;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .gallery-list {
+      display: grid;
+      gap: 15px;
+    }
+
+    .gallery-entry {
+      padding-bottom: 15px;
+      border-bottom: 1px solid #eadfd2;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .gallery-entry img {
+      width: 85px;
+      height: 75px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    .gallery-entry h3 {
+      font-size: 14px;
+    }
+
+    .gallery-entry p,
+    .empty-gallery {
+      margin-top: 6px;
+      color: #786b63;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .login-card {
+      width: calc(100% - 32px);
+      max-width: 420px;
+      margin: 70px auto;
+      padding: 32px;
+      background: white;
+      border: 1px solid #eadfd2;
+      border-radius: 8px;
+    }
+
+    .login-card h2 {
+      margin-top: 25px;
+      font-family: Georgia, serif;
+      font-size: 30px;
+      font-weight: 400;
+    }
+
+    .login-card p {
+      margin-top: 12px;
+      color: #786b63;
+      font-size: 13px;
+    }
+
+    .login-card label {
+      display: block;
+      margin: 18px 0 7px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .login-card input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #dfd1c3;
+      border-radius: 4px;
+    }
+
+    .login-card button {
+      width: 100%;
+      margin-top: 20px;
+      padding: 13px;
+      border: 0;
+      border-radius: 4px;
+      background: #a51e2b;
+      color: white;
+      cursor: pointer;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 20px;
+      color: #a51e2b;
+      font-size: 12px;
+    }
+
+    @media (max-width: 750px) {
+      .admin-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .admin-main h1 {
+        font-size: 30px;
+      }
+    }
+    .delete-puja-button {
+  margin-top: 12px;
+  padding: 9px 16px;
+  border: none;
+  border-radius: 6px;
+  background: #a51f32;
+  color: white;
+  cursor: pointer;
+}
+
+.delete-puja-button:hover {
+  background: #7f1726;
+}
+
+.delete-puja-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+  </style>
+  <script src="admin.js" defer></script>
+</head>
+
+<body>
+  <div id="login-view" hidden>
+    <main class="login-card">
+      <a href="/" class="logo">
+        <span class="logo-symbol">✺</span>
+        <span>Sharodiya<span class="logo-dot">.</span></span>
+      </a>
+
+      <h2>Admin Login</h2>
+      <p>Sign in to manage your Durga Puja gallery.</p>
+
+      <form id="login-form">
+        <label for="username">Username</label>
+        <input id="username" name="username" autocomplete="username" maxlength="100" required>
+
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" maxlength="200" required>
+
+        <button type="submit" id="login-button">Sign In</button>
+        <p id="login-message" role="status"></p>
+      </form>
+
+      <a href="/" class="back-link">← Back to Sharodiya</a>
+    </main>
+  </div>
+
+  <div id="dashboard-view" hidden>
+    <header class="admin-header">
+      <a href="/" class="logo">
+        <span class="logo-symbol">✺</span>
+        <span>Sharodiya<span class="logo-dot">.</span></span>
+      </a>
+      <button id="logout-button" type="button">Log Out</button>
+    </header>
+
+    <main class="admin-main">
+      <p class="section-kicker">ADMINISTRATION</p>
+      <h1>Gallery management</h1>
+      <p class="admin-subtitle">Upload and manage your Durga Puja gallery.</p>
+
+      <div class="admin-layout">
+        <section class="admin-panel">
+          <h2>Add a gallery entry</h2>
+
+          <form id="upload-form">
+            <label for="title">Puja / Pandal name</label>
+            <input id="title" name="title" maxlength="120" required>
+
+            <label for="location">Location</label>
+            <input id="location" name="location" maxlength="120" required>
+
+            <label for="year">Year</label>
+            <input id="year" name="year" type="number" min="2000" max="2100" required>
+
+            <label for="description">Description</label>
+            <textarea id="description" name="description" maxlength="1000"></textarea>
+
+            <label for="image">Pandal / idol photograph</label>
+            <input id="image" name="image" type="file" accept="image/jpeg,image/png,image/webp" required>
+
+            <button class="upload-button" id="upload-button" type="submit">Upload Photo</button>
+            <p id="admin-message" role="status" aria-live="polite"></p>
+          </form>
+        </section>
+
+        <section class="admin-panel">
+          <h2>Uploaded gallery</h2>
+          <div id="gallery-list" class="gallery-list">
+            <p class="empty-gallery">Loading gallery...</p>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
