@@ -59,7 +59,13 @@ router.post("/", requireAdmin, (req, res, next) => {
   let uploadedImage;
 
   try {
-    const { title, location, year, description } = req.body;
+   const {
+  title,
+  location,
+  year,
+  description,
+  googleMapsUrl
+} = req.body;
 
     if (
       typeof title !== "string" ||
@@ -87,7 +93,30 @@ router.post("/", requireAdmin, (req, res, next) => {
         message: "Enter a valid year."
       });
     }
+let validatedGoogleMapsUrl = "";
 
+if (typeof googleMapsUrl === "string" && googleMapsUrl.trim()) {
+  try {
+    const parsedUrl = new URL(googleMapsUrl.trim());
+
+    if (
+      parsedUrl.protocol !== "https:" ||
+      !["google.com", "www.google.com", "maps.google.com", "maps.app.goo.gl", "goo.gl"].includes(parsedUrl.hostname)
+    ) {
+      return res.status(400).json({
+        success: false,
+        message: "Enter a valid HTTPS Google Maps link."
+      });
+    }
+
+    validatedGoogleMapsUrl = parsedUrl.href;
+  } catch {
+    return res.status(400).json({
+      success: false,
+      message: "Enter a valid Google Maps URL."
+    });
+  }
+}
     if (!req.file) {
       return res.status(400).json({
         success: false,
@@ -110,6 +139,7 @@ router.post("/", requireAdmin, (req, res, next) => {
     const puja = await Puja.create({
       title: title.trim(),
       location: location.trim(),
+      googleMapsUrl: validatedGoogleMapsUrl,
       year: parsedYear,
       description:
         typeof description === "string" ? description.trim() : "",

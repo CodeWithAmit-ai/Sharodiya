@@ -85,9 +85,28 @@ async function loadHomepageGallery() {
       number.textContent = "↗";
       number.setAttribute("aria-hidden", "true");
 
-      info.append(textContainer, number);
-      card.append(image, info);
-      galleryGrid.appendChild(card);
+
+info.append(textContainer, number);
+card.append(image, info);
+
+// Get Directions link (shown only when a Maps URL exists)
+if (puja.googleMapsUrl) {
+  const directionsLink = document.createElement("a");
+  directionsLink.className = "directions-link";
+  directionsLink.textContent = "Get Directions ↗";
+  directionsLink.href = puja.googleMapsUrl;
+  directionsLink.target = "_blank";
+  directionsLink.rel = "noopener noreferrer";
+  directionsLink.setAttribute(
+    "aria-label",
+    `Get directions to ${puja.title || "this Puja"}`
+  );
+
+  card.appendChild(directionsLink);
+}
+
+galleryGrid.appendChild(card);
+
     });
 
     if (galleryNotice) {

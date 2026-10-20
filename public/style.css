@@ -684,3 +684,30 @@ a {
     height: 200px;
   }
 }
+
+/* Google Maps directions link */
+.directions-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 10px 14px;
+  border: 1px solid var(--gold);
+  border-radius: 4px;
+  background: var(--cream);
+  color: var(--red);
+  font-size: 12px;
+  font-weight: 700;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.directions-link:hover {
+  background: var(--red);
+  color: white;
+}
+
+.directions-link:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 3px;
+}

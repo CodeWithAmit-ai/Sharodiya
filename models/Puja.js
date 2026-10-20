@@ -14,6 +14,12 @@ const pujaSchema = new mongoose.Schema(
       required: true,
       trim: true
     },
+    googleMapsUrl: {
+      type: String,
+  default: "",
+  trim: true,
+  maxlength: 1000
+},
 
     year: {
       type: Number,
