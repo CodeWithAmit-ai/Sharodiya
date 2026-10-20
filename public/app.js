@@ -6,6 +6,32 @@ if (yearElement) {
   yearElement.textContent = new Date().getFullYear();
 }
 
+/* Reveal elements as visitors scroll */
+const revealObserver = new IntersectionObserver(
+  (entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  },
+  {
+    threshold: 0.12,
+    rootMargin: "0px 0px -35px 0px"
+  }
+);
+
+function observeReveal(element) {
+  element.classList.add("reveal-on-scroll");
+  revealObserver.observe(element);
+}
+
+/* Reveal the static page sections */
+document
+  .querySelectorAll(".hero-content, .section-heading, .about-section")
+  .forEach(observeReveal);
+
 // Load real Puja entries from the backend
 async function loadHomepageGallery() {
   const galleryGrid = document.getElementById("gallery-grid");
@@ -49,7 +75,8 @@ async function loadHomepageGallery() {
     result.data.forEach((puja, index) => {
       const card = document.createElement("article");
       card.className = "gallery-card";
-
+      card.style.setProperty("--card-index", index % 4);
+        observeReveal(card);
       // Photograph
       const image = document.createElement("img");
       image.className = "gallery-photo";
